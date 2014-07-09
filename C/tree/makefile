@@ -2,8 +2,13 @@
 CC=cc
 FLAGS=-Wall -O2
 
-all: tree.c tree.h
-	$(CC) $(FLAGS) tree.c 
+all: tree
+
+tree: tree.c tree.h
+	$(CC) $(FLAGS) tree.c -o tree 
+
+test: tree input_crashing.txt 
+	./tree < input_crashing.txt
 
 clean:
-	rm -f a.out
+	rm -f tree 
