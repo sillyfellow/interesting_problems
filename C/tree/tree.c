@@ -62,26 +62,26 @@ void treedel(node * tree, node * vater, int data)
   int random = 0;
   node * onlykid = NULL;
   if (tree == NULL)
-    return; // nothing to delete
+    return; /* nothing to delete */
   if(data < tree->data)
-  { // happens to be in the left tree
+  { /* happens to be in the left tree */
     treedel(tree->left, tree, data);
   }
   if(data > tree->data)
-  { // let's delete it from the right subtree.
+  { /* let's delete it from the right subtree. */
     treedel(tree->right, tree, data);
   }
-  // now we are on the tree NODE to be deleted.
+  /* now we are on the tree NODE to be deleted. */
 
-  tree->count -= 1; // reduce the count.
+  tree->count -= 1; /* reduce the count. */
   if (tree->count != 0)
-    return; // just return.
+    return; /* just return. */
 
-  // count has become zero, we have to really delete the stuff.
+  /* count has become zero, we have to really delete the stuff. */
 
-  if(tree == vater) //  happens to be the root node.
+  if(tree == vater) /*  happens to be the root node. */
   {
-    if(isleaf(tree)) // the only node in the tree
+    if(isleaf(tree)) /* the only node in the tree */
     {
       free(tree);
       return ;
@@ -104,12 +104,12 @@ void treedel(node * tree, node * vater, int data)
       }
       else
       {
-        // this should not happen
+        /* this should not happen */
       }
     }
 
     if((onlykid = single_kid(tree)) != NULL)
-    {// if tree has only one child, we can replace tree by it's kid.
+    {/* if tree has only one child, we can replace tree by it's kid. */
       if(vater->left == tree)
       {
         vater->left = onlykid;
@@ -120,25 +120,25 @@ void treedel(node * tree, node * vater, int data)
       }
       else
       {
-        // this should not happen
+        /* this should not happen */
       }
-      free(tree); // you can free it now.
+      free(tree); /* you can free it now. */
     }
 
-    // not a leaf, nor the father of only one child -
-    // hence replace tree with leftmost child of right child or
-    // rightmost child of left child
-    // random == 1 --> left child's rightmost child and
-    // random == 2 --> the other option.
+    /* not a leaf, nor the father of only one child - */
+    /* hence replace tree with leftmost child of right child or */
+    /* rightmost child of left child */
+    /* random == 1 --> left child's rightmost child and */
+    /* random == 2 --> the other option. */
 
-    random = replace(tree, vater); // does the random replacement.
+    random = replace(tree, vater); /* does the random replacement. */
     if(random == 1)
       treedel(tree->left, tree, data);
     else if (random == 2)
       treedel(tree->right, tree, data);
     else
       ;
-    // this is not supposed to happen.
+    /* this is not supposed to happen. */
   }
 
 }
@@ -174,11 +174,11 @@ int main()
   printf("Try a, d, p or q (for add, delete, print and quit respectively)\n");
   while(gets(input) != NULL)
   {
-    if (strlen(input) == 0) // blank line
+    if (strlen(input) == 0) /* blank line */
       continue;
 
-    // Note: I am not checking for the right kind of inputs.
-    // The focus is on the algorithms.
+    /* Note: I am not checking for the right kind of inputs. */
+    /* The focus is on the algorithms. */
     if(input[0] == 'a'){
       printf("Give the number: ");
       scanf("%d", &data);
