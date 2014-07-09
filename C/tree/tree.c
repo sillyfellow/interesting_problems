@@ -31,7 +31,7 @@ node * newnode(int data)
 
 int isleaf(node * tree)
 {
-  return ((tree->left == NULL) && (tree->right == NULL));
+  return (!tree->left && !tree->right);
 }
 
 node * get_only_child(node * tree)
