@@ -154,7 +154,6 @@ void inorder(node * tree)
 int main()
 {
   int data = 0;
-  int c;
   char * input = malloc(1024*sizeof(char));
   node * tree = NULL;
   printf("Try a, d, p or q (for add, delete, print and quit respectively)\n");
@@ -193,4 +192,5 @@ int main()
   }
 
   printf("Good bye\n");
+  return 0;
 }
