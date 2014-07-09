@@ -43,20 +43,6 @@ node * single_kid(node * tree)
   return NULL;
 }
 
-int replace(node * tree, node * father)
-{
-  int randm = rand() % 2;
-  switch(randm)
-  {
-    case 0:
-      break;
-    case 1:
-      break;
-    default:
-      break;
-  }
-}
-
 void treedel(node * tree, node * vater, int data)
 {
   int random = 0;
@@ -131,7 +117,7 @@ void treedel(node * tree, node * vater, int data)
     /* random == 1 --> left child's rightmost child and */
     /* random == 2 --> the other option. */
 
-    random = replace(tree, vater); /* does the random replacement. */
+    random = (int) rand() % 2; /* choose the side for random swap. */
     if(random == 1)
       treedel(tree->left, tree, data);
     else if (random == 2)
