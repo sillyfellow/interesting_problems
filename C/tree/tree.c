@@ -22,9 +22,9 @@
 node * create_new_node(int data)
 {
   node * Node = malloc(sizeof(node));
-  Node->left = NULL;
+  Node->left  = NULL;
   Node->right = NULL;
-  Node->data = data;
+  Node->data  = data;
   Node->count = 1;
   return Node;
 }
@@ -43,100 +43,108 @@ node * get_only_child(node * tree)
   return NULL;
 }
 
-void treedel(node * tree, node * vater, int data)
+node * delete_leaf_node(node * tree, node * vater)
 {
-  int random = 0;
-  node * onlykid = NULL;
-  if (tree == NULL)
-    return; /* nothing to delete */
+  if (!is_leaf(tree))
+    return vater;
+
+  if (tree)
+    free(tree);
+
+  if (!vater)
+    return vater;
+
+  if (tree == vater)
+    tree = vater = NULL;
+  else if(vater->left == tree)
+    vater->left = NULL;
+  else if (vater->right == tree)
+    vater->right = NULL;
+  return vater;
+}
+
+node * delete_node_with_only_one_child(node * tree, node * vater, node * onlykid)
+{
+  if(vater->left == tree)
+    vater->left = onlykid;
+  else if (vater->right == tree)
+    vater->right = onlykid;
+  if (tree)
+    free(tree);
+  return vater;
+}
+
+node * largest_from_left(node * tree)
+{
+  node * left = tree->left;
+  while (left->right)
+    left = left->right;
+  return left;
+}
+
+node * smallest_from_right(node * tree)
+{
+  node * right = tree->right;
+  while (right->left)
+    right = right->left;
+  return right;
+}
+
+void swap_node_with_viable_node_from_subtrees(node * tree)
+{
+  node * to_swap = NULL;
+  if (rand() % 2)
+    to_swap = smallest_from_right(tree);
+  else
+    to_swap = largest_from_left(tree);
+
+  int data  = tree->data;  tree->data  = to_swap->data;  to_swap->data  = data;
+  int count = tree->count; tree->count = to_swap->count; to_swap->count = count;
+}
+
+node * delete_node_from_tree(node * tree, node * vater, int data)
+{
+  if (!tree)
+    return vater;
+
   if(data < tree->data)
-  { /* happens to be in the left tree */
-    treedel(tree->left, tree, data);
+  {
+    tree = delete_node_from_tree(tree->left, tree, data);
+    return vater;
   }
+
   if(data > tree->data)
-  { /* let's delete it from the right subtree. */
-    treedel(tree->right, tree, data);
+  {
+    tree = delete_node_from_tree(tree->right, tree, data);
+    return vater;
   }
+
   /* now we are on the tree NODE to be deleted. */
 
   tree->count -= 1; /* reduce the count. */
-  if (tree->count != 0)
-    return; /* just return. */
+  if (tree->count > 0)
+    return vater;
 
   /* count has become zero, we have to really delete the stuff. */
+  if(is_leaf(tree))
+    return delete_leaf_node(tree, vater);
 
-  if(tree == vater) /*  happens to be the root node. */
-  {
-    if(is_leaf(tree)) /* the only node in the tree */
-    {
-      free(tree);
-      return ;
-    }
+  node * onlykid = NULL;
+  if((onlykid = get_only_child(tree)))
+    return delete_node_with_only_one_child(tree, vater, onlykid);
 
-  }
-  else
-  {
-    if(is_leaf(tree))
-    {
-      if(vater->left == tree)
-      {
-        free(tree);
-        vater->left = NULL;
-      }
-      else if (vater->right == tree)
-      {
-        free(tree);
-        vater->right = NULL;
-      }
-      else
-      {
-        /* this should not happen */
-      }
-    }
-
-    if((onlykid = get_only_child(tree)) != NULL)
-    {/* if tree has only one child, we can replace tree by it's kid. */
-      if(vater->left == tree)
-      {
-        vater->left = onlykid;
-      }
-      else if (vater->right == tree)
-      {
-        vater->right = onlykid;
-      }
-      else
-      {
-        /* this should not happen */
-      }
-      free(tree); /* you can free it now. */
-    }
-
-    /* not a leaf, nor the father of only one child - */
-    /* hence replace tree with leftmost child of right child or */
-    /* rightmost child of left child */
-    /* random == 1 --> left child's rightmost child and */
-    /* random == 2 --> the other option. */
-
-    random = (int) rand() % 2; /* choose the side for random swap. */
-    if(random == 1)
-      treedel(tree->left, tree, data);
-    else if (random == 2)
-      treedel(tree->right, tree, data);
-    else
-      ;
-    /* this is not supposed to happen. */
-  }
-
+  swap_node_with_viable_node_from_subtrees(tree);
+  return delete_node_from_tree(tree, vater, data);
 }
 
-node * treeadd(node * tree, int data)
+node * add_new_node_to_tree(node * tree, int data)
 {
   if(tree == NULL)
     return create_new_node(data);
   if (data < tree->data)
-    tree->left = treeadd(tree->left, data);
+    tree->left = add_new_node_to_tree(tree->left, data);
   if (data > tree->data)
-    tree->right = treeadd(tree->right, data);
+    tree->right = add_new_node_to_tree(tree->right, data);
   if (data == tree->data)
     tree->count++;
   return tree;
@@ -165,16 +173,16 @@ int main()
     /* Note: I am not checking for the right kind of inputs. */
     /* The focus is on the algorithms. */
     if(input[0] == 'a'){
-      printf("Give the number: ");
+      printf("add: ");
       scanf("%d", &data);
-      tree = treeadd(tree, data);
+      tree = add_new_node_to_tree(tree, data);
       continue;
     }
 
     if (input[0] == 'd'){
-      printf("Give the number: ");
+      printf("delete: ");
       scanf("%d", &data);
-      treedel(tree, tree, data);
+      tree = delete_node_from_tree(tree, tree, data);
       continue;
     }
 
