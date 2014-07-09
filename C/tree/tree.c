@@ -19,7 +19,7 @@
 
 #include "tree.h"
 
-node * newnode(int data)
+node * create_new_node(int data)
 {
   node * Node = malloc(sizeof(node));
   Node->left = NULL;
@@ -29,7 +29,7 @@ node * newnode(int data)
   return Node;
 }
 
-int isleaf(node * tree)
+int is_leaf(node * tree)
 {
   return (!tree->left && !tree->right);
 }
@@ -67,7 +67,7 @@ void treedel(node * tree, node * vater, int data)
 
   if(tree == vater) /*  happens to be the root node. */
   {
-    if(isleaf(tree)) /* the only node in the tree */
+    if(is_leaf(tree)) /* the only node in the tree */
     {
       free(tree);
       return ;
@@ -76,7 +76,7 @@ void treedel(node * tree, node * vater, int data)
   }
   else
   {
-    if(isleaf(tree))
+    if(is_leaf(tree))
     {
       if(vater->left == tree)
       {
@@ -132,7 +132,7 @@ void treedel(node * tree, node * vater, int data)
 node * treeadd(node * tree, int data)
 {
   if(tree == NULL)
-    return newnode(data);
+    return create_new_node(data);
   if (data < tree->data)
     tree->left = treeadd(tree->left, data);
   if (data > tree->data)
