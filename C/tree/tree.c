@@ -34,11 +34,11 @@ int isleaf(node * tree)
   return ((tree->left == NULL) && (tree->right == NULL));
 }
 
-node * single_kid(node * tree)
+node * get_only_child(node * tree)
 {
-  if ((tree->left == NULL) && (tree->right != NULL))
+  if (!tree->left)
     return tree->right;
-  if ((tree->left != NULL) && (tree->right == NULL))
+  if (!tree->right)
     return tree->left;
   return NULL;
 }
@@ -94,7 +94,7 @@ void treedel(node * tree, node * vater, int data)
       }
     }
 
-    if((onlykid = single_kid(tree)) != NULL)
+    if((onlykid = get_only_child(tree)) != NULL)
     {/* if tree has only one child, we can replace tree by it's kid. */
       if(vater->left == tree)
       {
