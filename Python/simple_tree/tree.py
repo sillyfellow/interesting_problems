@@ -128,27 +128,27 @@ class BinarySearchTree(BinaryTree):
 
         return self.rkid.find(data) if self.rkid else None
 
+if __name__ == "__main__":
+    limit = 100
+    insertrands = [randint(1, limit) for x in range(limit / 3)]
+    deleterands = [randint(1, limit) for x in range(limit / 2)]
 
-limit = 100
-insertrands = [randint(1, limit) for x in range(limit / 3)]
-deleterands = [randint(1, limit) for x in range(limit / 2)]
+    tree = BinarySearchTree(limit / 2)
+    for x in insertrands:
+        tree.insert(x)
 
-tree = BinarySearchTree(limit / 2)
-for x in insertrands:
-    tree.insert(x)
+    for d in deleterands:
+        print "\n...Tree:...\n", tree
+        print "Deleting: %d" % d
+        if not tree.find(d):
+            print "It is not in the tree, still you may try"
 
-for d in deleterands:
-    print "\n...Tree:...\n", tree
-    print "Deleting: %d" % d
-    if not tree.find(d):
-        print "It is not in the tree, still you may try"
-
-    tree = tree.delete(d)
-    if randint(0, 3) == 1:
+        tree = tree.delete(d)
+        if randint(0, 3) == 1:
+            print tree
+            ins = randint(1, limit)
+            print "\nInserting %d" % ins
+            tree.insert(ins)
         print tree
-        ins = randint(1, limit)
-        print "\nInserting %d" % ins
-        tree.insert(ins)
-    print tree
-    if not tree:
-        break
+        if not tree:
+            break
