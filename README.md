@@ -28,12 +28,9 @@ So, here are some:
    All of that in C++
    https://github.com/sillyfellow/mishmash/tree/master/C++/graph.cc
 
-5. Trees
-   a. in C++
-      https://github.com/sillyfellow/mishmash/tree/master/C++/trees/
-   b. in Python
-      https://github.com/sillyfellow/mishmash/blob/master/Python/simple_tree/tree.py
-
+5. Implementation of trees in C++ and in Python (very simple - Binary trees, and BSTs).
+   https://github.com/sillyfellow/mishmash/tree/master/C++/trees/
+   https://github.com/sillyfellow/mishmash/blob/master/Python/simple_tree/tree.py
 
 
 More to come in future.
