@@ -28,8 +28,11 @@ So, here are some:
    All of that in C++
    https://github.com/sillyfellow/mishmash/tree/master/C++/graph.cc
 
-5. Trees in C++
-   https://github.com/sillyfellow/mishmash/tree/master/C++/trees/
+5. Trees
+   a. in C++
+      https://github.com/sillyfellow/mishmash/tree/master/C++/trees/
+   b. in Python
+      https://github.com/sillyfellow/mishmash/blob/master/Python/simple_tree/tree.py
 
 
 
