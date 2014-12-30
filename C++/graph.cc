@@ -5,7 +5,7 @@
  *
  *    Description: I am trying to implement all (most) of the graph
  *                 algorihms... Just to cement my C++ fundamentals. It
- *                 will also reinforce my graph-knowledge. 
+ *                 will also reinforce my graph-knowledge.
  *
  *                 TODO: the adjacency list/matrix is still with
  *                 pointers, I shall prefer to totally avoid pointers.
@@ -13,11 +13,11 @@
  *
  *                 This one contains, different shortest paths,
  *                 traversals, network flow (well, finding augmented
- *                 paths, of course). 
+ *                 paths, of course).
  *
  *                 Would like to implement bipartite, maximum matching.
  *                 Also, my own version of the same and do a lot of
- *                 testing. 
+ *                 testing.
  *
  *        Version:  1.0
  *        Created:  03/08/13 22:16:59
@@ -193,6 +193,7 @@ class Graph
             }
             cout << endl;
         }
+
         int AddVertex(string name)
         {
             int id;
@@ -230,7 +231,6 @@ class Graph
         {
             V[u].AddEdge(Edge(u, v, w, c));
         }
-
 
         void PrintAdjacencyList(bool capacity = false)
         {
