@@ -35,4 +35,4 @@ So, here are some:
 
 More to come in future.
 
-
+Note to self: https://cstheory.stackexchange.com/questions/19759/core-algorithms-deployed/
