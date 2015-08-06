@@ -1,22 +1,23 @@
 #!/usr/bin/ruby
 
 def largest(a)
-  ls = cs = le = ce = lz = cz = 0
+  largest_start = current_start = largest_end = current_end = largest_so_far = current_so_far = 0
   (0..(a.count - 1)).each do |i|
-    ce = i
-    cz = cz + a[i]
+    current_end = i
+    current_so_far = current_so_far + a[i]
 
-    if cz < 0
-      cs = ce = i + 1
-      cz = 0
+    # If negative, time to reset.
+    if current_so_far < 0
+      current_start = current_end = i + 1
+      current_so_far = 0
       next
     end
 
-    if cz > lz
-      ls, le, lz = cs, ce, cz
+    if current_so_far > largest_so_far
+      largest_start, largest_end, largest_so_far = current_start, current_end, current_so_far
     end
   end
-  return ls, le, lz
+  return largest_start, largest_end, largest_so_far
 end
 
 print largest([1]).to_s + "\n"
