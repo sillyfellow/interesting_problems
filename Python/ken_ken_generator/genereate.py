@@ -23,8 +23,7 @@ def switch_rows(mat):
     mat[src], mat[dst] = mat[dst], mat[src]
 
 def make_matrix_valid(mat, num):
-    for row in range(len(mat)):
-        mat[row] = [1 + (x % num) for x in mat[row]]
+    return [[1 + (x % num) for x in row] for row in mat]
 
 def validate_list_against_set(the_set, the_list, message):
     if the_set != set(the_list):
@@ -34,23 +33,29 @@ def validate_list_against_set(the_set, the_list, message):
 
 def validate_matrix(mat):
     the_set = set(range(1, len(mat) + 1))
-    # We could avoid going through EACH column and ROW (using the 'and'.. but
+    # We could avoid going through EACH column and row (using the 'and'.. but
     # then we'll know only the first wrong row, nothing which comes afterwards.
     row_vals = [validate_list_against_set(the_set, row, "Broken row:") for row in mat]
     col_vals = [validate_list_against_set(the_set, [row[col] for row in mat], "Broken col: ") for col in range(len(mat))]
     set_vals = set (row_vals + col_vals)
     return False if False in set_vals else True
 
-def generate(num):
+def generate_a_basic_n_x_n_board(num):
     matrix = [range(x, x + num) for x in range(0, num)]
-    make_matrix_valid(matrix, num)
-    for iteration in range(num * num):
+    return make_matrix_valid(matrix, num)
+
+def shuffle_matrix(matrix):
+    for iteration in range(randint(len(matrix), 2 * len(matrix))): # What is the optimal number?
         switch_columns(matrix)
         switch_rows(matrix)
+    return matrix
+
+def generate(num):
+    matrix = shuffle_matrix(generate_a_basic_n_x_n_board(num))
     return matrix if validate_matrix(matrix) else None
 
 def kenkenify(board):
-    print_mat( board)
+    print_mat(board)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate kenken board of size n')
