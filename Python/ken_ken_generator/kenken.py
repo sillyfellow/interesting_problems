@@ -26,14 +26,12 @@ class Kenken:
         src, dst = self.randindex(), self.randindex()
         self.matrix[src], self.matrix[dst] = self.matrix[dst], self.matrix[src]
 
-
     def size(self):
         return len(self.matrix)
 
     def generate_matrix(self, num):
         matrix = [range(x, x + num) for x in range(0, num)]
         return [[1 + (x % num) for x in row] for row in matrix]
-
 
     @staticmethod
     def validate_list_against_set(the_set, the_list, message):
