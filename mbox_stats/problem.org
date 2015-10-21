@@ -1,0 +1,47 @@
+# Exercise mbox statistics
+
+## Task
+Create a Python script that reads a .mbox file and calculates some statistics
+from the mbox and prints them to stdout.
+
+## Input:
+any mbox file, e.g.
+http://mail-archives.apache.org/mod_mbox/zookeeper-bookkeeper-dev/201411.mbox
+http://download.gmane.org/gmane.linux.kernel.rpi/0/2000
+
+## Expected output
+- percentage of messages / domain
+- message size (without quotes) / domain
+- quote percentage / domain
+
+### Example output
+If you format the output differently it is also ok.
+```
+Total message count / domain:
++----+-----Domain--------------------------------+--Msg-+-Percentage-+
+|  1 | @gmail.com                                |  500 |    20.50 % |
+|  2 | @apache.org                               |  403 |    15.32 % |
+...
+| 10 | @hotmail.com                              |   50 |     2.05 % |
++----+-------------------------------------------+------+------------+
+|    | other                                     | 2000 |    23.52 % |
++----+-------------------------------------------+------+------------+
+
+Total message size / domain
++----+-----Author-------------------------------------------+-KBytes-+
+|  1 | @gmail.com                                           |  453.2 |
+|  2 | @apache.org                                          |  345.8 |
+...
+| 10 | @hotmail.com                                         |  201.9 |
++----+------------------------------------------------------+--------+
+```
+
+## Environment
+* Runs from the command line
+* File for analysis is given as first argument
+  e.g. `create_mbox_stats 201411.mbox`
+* Output is written to stdout.
+
+## Time:
+Three hours.
+
