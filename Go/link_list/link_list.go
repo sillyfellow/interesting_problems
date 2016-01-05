@@ -6,7 +6,8 @@ type Node struct {
 }
 
 type List struct {
-	head, tail *Node
+	head *Node
+	tail *Node
 }
 
 func (l *List) Head() *Node {
@@ -41,4 +42,20 @@ func (l *List) Prepend(val string) {
 	if l.tail == nil {
 		l.tail = l.head
 	}
+}
+
+func (n *Node) Reverse() *Node {
+	if n == nil || n.next == nil {
+		return n
+	}
+
+	newHead := n.next.Reverse()
+
+	n.next.next = n
+	n.next = nil
+	return newHead
+}
+
+func (l *List) Reverse() {
+	l.head, l.tail = l.head.Reverse(), l.head
 }
