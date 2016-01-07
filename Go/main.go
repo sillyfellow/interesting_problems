@@ -2,6 +2,9 @@ package main
 
 import "fmt"
 import "./link_list"
+import "./bin_tree"
+import "math/rand"
+import "time"
 
 func LLTest() {
 	list := new(link_list.List)
@@ -23,6 +26,21 @@ func LLTest() {
 	fmt.Printf("%v\n", list)
 }
 
+func BinaryTreeTest() {
+	tree := bin_tree.MakeBinaryTree(36)
+	for i := 0; i < 5; i++ {
+		tree.Insert(rand.Intn(100))
+	}
+	fmt.Println(tree)
+
+	tree = tree.Mirror()
+
+	fmt.Println(tree)
+}
+
 func main() {
+	rand.Seed(time.Now().UTC().UnixNano())
 	LLTest()
+	fmt.Println("Calling Binary Tree")
+	BinaryTreeTest()
 }
