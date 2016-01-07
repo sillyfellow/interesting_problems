@@ -15,29 +15,23 @@ type BinaryTree struct {
 	data  int
 	left  *BinaryTree
 	right *BinaryTree
-	categ string
 }
 
-func MakeBinaryTree(value int) *BinaryTree {
-	return &BinaryTree{data: value, categ: "bt"}
+func EmptyTree() *BinaryTree {
+	return nil
 }
 
 func (tree *BinaryTree) String() string {
-	left_tree := ""
-	if tree.left != nil {
-		left_tree = tree.left.String()
+
+	if tree == nil {
+		return ""
 	}
 
-	right_tree := ""
-	if tree.right != nil {
-		right_tree = tree.right.String()
-	}
-
-	return fmt.Sprintf("%v %v (%v) %v", left_tree, tree.data, tree.categ, right_tree)
+	return fmt.Sprintf("%v - %v - %v", tree.left.String(), tree.data, tree.right.String())
 }
 
 func (tree *BinaryTree) TraverseDirection(value int) Direction {
-	if tree.data == value {
+	if tree == nil || tree.data == value {
 		return Root
 	}
 
@@ -48,37 +42,27 @@ func (tree *BinaryTree) TraverseDirection(value int) Direction {
 }
 
 func (tree *BinaryTree) Insert(value int) *BinaryTree {
+	if tree == nil {
+		return &BinaryTree{data: value}
+	}
+
 	direction := tree.TraverseDirection(value)
+
 	if direction == Left {
-		if tree.left == nil {
-			tree.left = &BinaryTree{data: value, categ: "bt"}
-		} else {
-			tree.left = tree.left.Insert(value)
-		}
+		tree.left = tree.left.Insert(value)
 	}
 
 	if direction == Right {
-		if tree.right == nil {
-			tree.right = &BinaryTree{data: value, categ: "bt"}
-		} else {
-			tree.right = tree.right.Insert(value)
-		}
+		tree.right = tree.right.Insert(value)
 	}
 	return tree
 }
 
 func (tree *BinaryTree) Mirror() *BinaryTree {
-
-	var lMirror *BinaryTree
-	var rMirror *BinaryTree
-
-	if tree.left != nil {
-		lMirror = tree.left.Mirror()
+	if tree == nil {
+		return nil
 	}
 
-	if tree.right != nil {
-		rMirror = tree.right.Mirror()
-	}
-	tree.left, tree.right = rMirror, lMirror
+	tree.left, tree.right = tree.right.Mirror(), tree.left.Mirror()
 	return tree
 }

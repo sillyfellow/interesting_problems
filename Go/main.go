@@ -27,9 +27,9 @@ func LLTest() {
 }
 
 func BinaryTreeTest() {
-	tree := bin_tree.MakeBinaryTree(36)
-	for i := 0; i < 5; i++ {
-		tree.Insert(rand.Intn(100))
+	tree := bin_tree.EmptyTree()
+	for i := 0; i < 23; i++ {
+		tree = tree.Insert(rand.Intn(100))
 	}
 	fmt.Println(tree)
 
